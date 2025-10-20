@@ -18,7 +18,6 @@ export function Cabecalho({ onPressUser, onPressLogout }: CabecalhoProps) {
 
   const handleUser = () => {
     if (onPressUser) return onPressUser();
-    // Navega para a tela de Perfil para exibir todos os dados do usuário
     navigation.navigate('Perfil' as never);
   };
 

@@ -4,7 +4,6 @@ import { theme } from "../../global/themes";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',   
     padding: 20,
@@ -90,5 +89,15 @@ export const styles = StyleSheet.create({
     color: theme.colors.botao,
     fontWeight: 'bold',
   },
-  
+  fundo: {
+    position: 'absolute',
+    top: Platform.OS === 'android' ? 30 : 0, 
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.6, 
+    zIndex: -1, 
+  },
 });

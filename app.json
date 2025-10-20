@@ -28,6 +28,9 @@
     },
     "extra": {
       "apiBase": "http://192.168.18.81/codeall-api/public/index.php"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

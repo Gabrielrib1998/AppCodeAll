@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export let BASE_URL = 'http://localhost/codeall-api/public/index.php';
+export let BASE_URL = 'http://10.6.75.90/codeall-api/public/index.php';
 export function setBaseUrl(url: string) { BASE_URL = url.replace(/\/$/, ''); }
 let DEFAULT_BASE_URL = BASE_URL;
 let AUTH_TOKEN: string | null = null;
@@ -42,7 +42,7 @@ function resolveHostFromExpo(): string | null {
   }
   if (Platform.OS === 'android') {
     // Android Emulator maps host loopback to 10.0.2.2
-    BASE_URL = 'http://10.0.2.2/codeall-api/public/index.php';
+    BASE_URL = 'http://localhost/codeall-api/public/index.php';
   } else if (Platform.OS === 'ios') {
     BASE_URL = 'http://localhost/codeall-api/public/index.php';
   }
@@ -139,7 +139,6 @@ async function request<T>(path: string, options: RequestInit): Promise<T> {
     } catch {
       // ignore
     }
-    // Fallback: se 404/"endpoint" tentar estilo PATH_INFO ".../index.php/rota"
     const shouldFallback = res.status === 404 || /endpoint/i.test(msg || '') || /endpoint/i.test(texto || '');
     if (shouldFallback) {
       const url2 = montarUrlPathInfo(path);

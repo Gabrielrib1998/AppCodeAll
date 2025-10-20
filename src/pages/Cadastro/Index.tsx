@@ -33,10 +33,9 @@ export default function Cadastro() {
   const districtRef = useRef<TextInput>(null);
   const cityRef = useRef<TextInput>(null);
 
-  // Máscaras simples (BR)
   const somenteDigitos = (s: string) => s.replace(/\D/g, '');
   const maskCPF = (v: string) => {
-    const d = somenteDigitos(v).slice(0, 11);
+  const d = somenteDigitos(v).slice(0, 11);
     return d
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
@@ -44,18 +43,16 @@ export default function Cadastro() {
   };
   const maskCEP = (v: string) => {
     const d = somenteDigitos(v).slice(0, 8);
-    return d.replace(/(\d{5})(\d{1,3})$/, '$1-$2');
+      return d.replace(/(\d{5})(\d{1,3})$/, '$1-$2');
   };
   const maskPhone = (v: string) => {
     const d = somenteDigitos(v).slice(0, 11);
     if (d.length <= 10) {
-      // (99) 9999-9999
       return d
         .replace(/(\d{2})(\d)/, '($1) $2')
         .replace(/(\d{4})(\d)/, '$1-$2');
     }
-    // (99) 9 9999-9999
-    return d
+      return d
       .replace(/(\d{2})(\d)/, '($1) $2')
       .replace(/(\d{1})(\d{4})(\d)/, '$1 $2-$3');
   };
@@ -85,7 +82,6 @@ export default function Cadastro() {
 
     try {
       setLoading(true);
-      // Enviar somente dígitos para CPF/CEP/Telefone
       const cpfRaw = somenteDigitos(cpf);
       const cepRaw = somenteDigitos(cep);
       const phoneRaw = somenteDigitos(phone);
@@ -130,14 +126,16 @@ export default function Cadastro() {
       Alert.alert('Erro', e?.message || 'Falha ao cadastrar');
     }
   }
-
+ 
   return (
+  <>
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: '#fff' }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
     >
       <SafeAreaView style={{ flex: 1 }}>
+        <Image source={{ uri: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80' }} style={styles.fundo} resizeMode="cover" />
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 40 }}
@@ -279,5 +277,6 @@ export default function Cadastro() {
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
+  </>
   );
 }

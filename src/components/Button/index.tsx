@@ -1,14 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, TouchableOpacityProps, Text, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, TouchableOpacityProps, Text, ActivityIndicator, TextStyle } from 'react-native';
 import { styles } from './styles';
 
 type Props = TouchableOpacityProps & {
   title: string;
   type?: 'primary' | 'secondary';
   loading?: boolean;
+  textStyle?: TextStyle; 
 };
 
-export function Button({ title, onPress, disabled, loading = false, style }: Props) {
+export function Button({ title, onPress, disabled, loading = false, style, textStyle }: Props) {
   const isDisabled = !!disabled || !!loading;
 
   return (
@@ -21,7 +22,7 @@ export function Button({ title, onPress, disabled, loading = false, style }: Pro
       {loading ? (
         <ActivityIndicator color="#fff" animating={true} />
       ) : (
-        <Text style={styles.textbutton}>{title}</Text>
+        <Text style={[styles.textbutton, textStyle]}>{title}</Text>
       )}
     </TouchableOpacity>
   );

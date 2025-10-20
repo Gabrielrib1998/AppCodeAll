@@ -24,7 +24,6 @@ export default function Login() {
                     return Alert.alert('Atenção', 'Preencha todos os campos!');
                 }
                 setLoading(true);
-                // Chama a função do contexto para autenticar e salvar localmente
                 await entrar(usuario.trim(), password.trim());
                 setLoading(false);
                 Keyboard.dismiss();
@@ -40,8 +39,10 @@ export default function Login() {
 
 
         return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
+            <>
+                <Image source={{ uri: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80' }} style={styles.fundo} resizeMode="cover" />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+         <View style={styles.container}>
          <View style={styles.containerLogin}>
               <View style={styles.boxLogo}>
                  <Image source={Logo} />
@@ -83,14 +84,15 @@ export default function Login() {
                  />
           </View>
                    
-<TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                         <Text style={styles.textButtonCadastrar}>
                             Não possui uma conta?
                             <Text style={styles.textButtonCadastrarAqui}> Cadastre-se aqui!</Text>
                         </Text>
                     </TouchableOpacity>
-        </View>
-    </View>
-</TouchableWithoutFeedback>
+                </View>
+          </View>
+        </TouchableWithoutFeedback>
+</>
         );
     }
