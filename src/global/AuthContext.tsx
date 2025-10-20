@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
-import { apiLogin, setAuthToken, setRefreshToken } from '../services/api';
+import { apiLogin, setAuthToken, setRefreshToken, inicializarApiBase } from '../services/api';
 
 // Tipos em português para facilitar entendimento
 export type Usuario = {
@@ -40,6 +40,10 @@ export function ProvedorAuth({ children }: ProvedorAuthProps) {
   const carregarSessao = useCallback(async () => {
     try {
       setCarregando(true);
+      
+      // Inicializar configuração da API (incluindo detecção automática de IP)
+      await inicializarApiBase();
+      
       const texto = await AsyncStorage.getItem(CHAVE_SESSAO);
       const token = await AsyncStorage.getItem(CHAVE_TOKEN);
       const refresh = await AsyncStorage.getItem(CHAVE_REFRESH);
