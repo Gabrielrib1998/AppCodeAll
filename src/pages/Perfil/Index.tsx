@@ -6,8 +6,10 @@ import { apiBuscarUsuarioPorEmail, UsuarioCompleto } from '../../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Input } from '../../components/input';
 import { Button } from '../../components/Button';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Perfil() {
+  const navigation = useNavigation<any>();
   const { usuario, carregarSessao } = React.useContext(AuthContext);
   const [carregando, setCarregando] = useState<boolean>(true);
   const [dados, setDados] = useState<UsuarioCompleto | null>(null);
@@ -131,6 +133,11 @@ export default function Perfil() {
             </View>
           ))}
           <Button title="Editar" onPress={() => setEditando(true)} />
+          <View style={{ height: 8 }} />
+          <Button 
+            title="⚙️ Configurar Servidor" 
+            onPress={() => navigation.navigate('ConfigurarServidor')} 
+          />
         </>
       ) : (
         <>

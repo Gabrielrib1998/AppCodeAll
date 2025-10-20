@@ -49,7 +49,7 @@ export default function Routes() {
         <Stack.Screen 
           name="ConfigurarServidor" 
           component={ConfigurarServidor} 
-          options={{ title: 'Configurar Servidor', headerShown: true }} 
+          options={{ headerShown: true, header: () => <Cabecalho /> }} 
         />
       
     </Stack.Navigator>
