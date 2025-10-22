@@ -3,9 +3,12 @@ import { theme } from '../../global/themes';
 
 export const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    height: '100%',
+    top: 20,
     flex: 1,
     padding: 16,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secundary,
     paddingTop: Platform.OS === 'android' ? 20 : 0,
   },
   titulo: {

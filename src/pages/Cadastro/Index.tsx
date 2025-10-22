@@ -59,10 +59,10 @@ export default function Cadastro() {
 
   async function getLogin() {
    if (
-      !email.trim() ||
+      !email.trim()&& !email.includes('@') ||
       !password.trim() ||
       !confirmPassword.trim() ||
-      !name.trim() ||
+      !name.trim() && name.length < 3 ||
       !phone.trim() ||
       !cpf.trim() ||
       !cep.trim() ||
@@ -103,7 +103,6 @@ export default function Cadastro() {
         {
           text: 'Ir para Login',
           onPress: () => {
-            // Redireciona para a tela de Login e limpa o histórico
             (navigation as any).reset?.({ index: 0, routes: [{ name: 'Login' }] });
           },
         },

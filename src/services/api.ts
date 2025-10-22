@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export let BASE_URL = 'http://10.6.75.90/codeall-api/public/index.php';
+export let BASE_URL = 'http://10.6.78.253/codeall-api/public/index.php';
 export function setBaseUrl(url: string) { BASE_URL = url.replace(/\/$/, ''); }
 let DEFAULT_BASE_URL = BASE_URL;
 let AUTH_TOKEN: string | null = null;

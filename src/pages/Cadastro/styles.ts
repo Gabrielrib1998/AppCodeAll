@@ -7,7 +7,7 @@ container: {
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 30,
-
+    
   },
     containerLogin: {
     width: '100%',

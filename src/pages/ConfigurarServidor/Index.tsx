@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, ScrollView } from 'react-native';
 import { styles } from './styles';
 import { apiHealth, BASE_URL, salvarApiBaseLocal, limparApiBaseLocal, atualizarIPAutomaticamente, obterIPAtual, debugInfoRede } from '../../services/api';
 import { Button } from '../../components/Button';
@@ -52,6 +52,7 @@ export default function ConfigurarServidor() {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.titulo}>Configurar Servidor</Text>
       <Text style={styles.label}>URL do index.php da API</Text>
@@ -69,5 +70,6 @@ export default function ConfigurarServidor() {
       <View style={{ height: 8 }} />
       <Button title="Resetar para padrão" onPress={() => limparApiBaseLocal()} />
     </View>
+    </ScrollView>
   );
 }
