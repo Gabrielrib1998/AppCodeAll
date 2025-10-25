@@ -195,6 +195,16 @@ export const styles = StyleSheet.create({
     fontFamily: 'monospace',
   },
 
+  missedText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FF6B6B',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+    fontFamily: 'monospace',
+  },
+
   pauseButton: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
@@ -232,8 +242,8 @@ export const styles = StyleSheet.create({
 
   clickableTag: {
     position: 'absolute',
-    minWidth: 140,
-    minHeight: 60,
+    minWidth: 160,
+    minHeight: 80,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -244,14 +254,15 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.5,
     shadowRadius: 10,
+    padding: 10, // Adiciona padding para área de toque maior
   },
 
   tagGradient: {
     borderRadius: 25,
-    paddingHorizontal: 24,
-    paddingVertical: 18,
-    minWidth: 140,
-    minHeight: 60,
+    paddingHorizontal: 28,
+    paddingVertical: 22,
+    minWidth: 160,
+    minHeight: 80,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,

@@ -35,6 +35,7 @@ export default function JogoTags() {
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
+  const [missedCorrectCount, setMissedCorrectCount] = useState(0); // Contador de tags corretas que escaparam
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -53,7 +54,7 @@ export default function JogoTags() {
       id: tagIdRef.current++,
       type: isCorrect ? 'correct' : 'incorrect',
       text,
-      x: Math.random() * (screenWidth - 140), // Mais espaço para tags maiores
+      x: Math.random() * (screenWidth - 160), // Mais espaço para tags maiores
       y: new Animated.Value(-80), // Começa mais longe para animação suave
       color: 'transparent' // Sem cor de fundo, usando estilo do botão
     };
@@ -123,6 +124,22 @@ export default function JogoTags() {
     const listener = tag.y.addListener(({ value }) => {
       if (value > screenHeight + 50) {
         tag.y.removeListener(listener);
+        
+        // Se a tag correta passou, conta como "escapou"
+        if (tag.type === 'correct') {
+          setMissedCorrectCount(prev => {
+            const newMissedCount = prev + 1;
+            // Termina o jogo quando 10 tags corretas passam
+            if (newMissedCount >= 10) {
+              setTimeout(() => {
+                showFeedback('VOCÊ PERDEU! 10 tags corretas escaparam! 😵', false);
+                setTimeout(() => endGame(), 1000);
+              }, 100);
+            }
+            return newMissedCount;
+          });
+        }
+        
         setTags(prevTags => prevTags.filter(t => t.id !== tag.id));
       }
     });
@@ -134,6 +151,7 @@ export default function JogoTags() {
     setScore(0);
     setCorrectCount(0);
     setWrongCount(0);
+    setMissedCorrectCount(0); // Reseta contador de tags que escaparam
     setTags([]);
     setGameSpeed(3000); // Reseta a velocidade
     tagIdRef.current = 0; // Reseta o ID das tags
@@ -149,14 +167,14 @@ export default function JogoTags() {
     navigation.goBack();
   };
 
-  // Game loop com velocidade variável
+  // Game loop com frequência balanceada
   useEffect(() => {
     if (gameStarted && !gameOver) {
-      // Intervalo mais moderado para melhor legibilidade
-      const baseInterval = Math.max(1200, gameSpeed / 2);
+      // Intervalo um pouco maior para melhor performance
+      const baseInterval = Math.max(800, gameSpeed / 3.5);
       const interval = setInterval(() => {
         generateTag();
-      }, baseInterval + Math.random() * 800);
+      }, baseInterval + Math.random() * 600);
 
       return () => clearInterval(interval);
     }
@@ -180,6 +198,7 @@ export default function JogoTags() {
               <Text style={styles.finalScore}>Pontuação Final: {score}</Text>
               <Text style={styles.tagsCollected}>✅ Tags Corretas: {correctCount}</Text>
               <Text style={styles.tagsWrong}>❌ Erros: {wrongCount}/5</Text>
+              <Text style={styles.tagsWrong}>🏃‍♂️ Escaparam: {missedCorrectCount}/10</Text>
               <Text style={styles.perfectGame}>🔄 Tente novamente!</Text>
             </View>
           )}
@@ -190,7 +209,7 @@ export default function JogoTags() {
             <Text style={styles.instructionText}>• Tags HTML, CSS, JS = +50 pontos! ⭐</Text>
             <Text style={styles.instructionText}>• Tags erradas clicadas = -25 pontos ❌</Text>
             <Text style={styles.instructionText}>• Não clique 5 tags erradas ou é GAME OVER! 💀</Text>
-            <Text style={styles.instructionText}>• Velocidade aumenta com acertos! ⚡</Text>
+            <Text style={styles.instructionText}>• Não deixe 10 tags corretas escaparem! 🏃‍♂️</Text>
           </View>
 
           <TouchableOpacity style={styles.playButton} onPress={startGame}>
@@ -218,7 +237,7 @@ export default function JogoTags() {
       <View style={styles.hud}>
         <Text style={styles.scoreText}>⭐ {score}</Text>
         <Text style={styles.progressText}>✅ {correctCount} | ❌ {wrongCount}/5</Text>
-        <Text style={styles.speedText}>⚡ Nível {Math.floor((3000 - gameSpeed) / 100) + 1}</Text>
+        <Text style={styles.missedText}>🏃‍♂️ Escaparam: {missedCorrectCount}/10</Text>
         <TouchableOpacity onPress={endGame} style={styles.pauseButton}>
           <MaterialIcons name="pause" size={25} color="#fff" />
         </TouchableOpacity>
@@ -245,12 +264,10 @@ export default function JogoTags() {
             onPress={() => handleTagClick(tag)}
             activeOpacity={0.8}
             style={styles.tagTouchable}
+            hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }} // Área extra de toque
           >
             <LinearGradient
-              colors={tag.type === 'correct' 
-                ? ['#4ECDC4', '#44A08D'] 
-                : ['#FF6B6B', '#EE5A52']
-              }
+              colors={['#8E8E93', '#636366']} // Cinza uniforme para todas as tags
               style={styles.tagGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
