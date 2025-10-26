@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, Dimensions, TouchableOpacity, Animated, PanResponder } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity, Animated } from "react-native";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -32,17 +32,17 @@ const incorrectTags = [
 
 export default function JogoTags() {
   const navigation = useNavigation<any>();
-  const [score, setScore] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [wrongCount, setWrongCount] = useState(0);
-  const [missedCorrectCount, setMissedCorrectCount] = useState(0); // Contador de tags corretas que escaparam
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState<number>(0);
+  const [correctCount, setCorrectCount] = useState<number>(0);
+  const [wrongCount, setWrongCount] = useState<number>(0);
+  const [missedCorrectCount, setMissedCorrectCount] = useState<number>(0); // Contador de tags corretas que escaparam
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [feedbackText, setFeedbackText] = useState('');
-  const [gameSpeed, setGameSpeed] = useState(3000); // Velocidade inicial das tags
-  const tagIdRef = useRef(0);
-  const feedbackOpacity = useRef(new Animated.Value(0)).current;
+  const [feedbackText, setFeedbackText] = useState<string>('');
+  const [gameSpeed, setGameSpeed] = useState<number>(3000); // Velocidade inicial das tags
+  const tagIdRef = useRef<number>(0);
+  const feedbackOpacity = useRef<Animated.Value>(new Animated.Value(0)).current;
 
   // Gerar nova tag
   const generateTag = () => {
@@ -69,14 +69,13 @@ export default function JogoTags() {
     // Configurar remoção automática quando sair da tela
     setupTagAutoRemoval(newTag);
 
-    setTags(prevTags => [...prevTags, newTag]);
+  setTags((prevTags: Tag[]) => [...prevTags, newTag]);
   };
 
   // Mostrar feedback visual
   const showFeedback = (text: string, isPositive: boolean) => {
     setFeedbackText(text);
     feedbackOpacity.setValue(1);
-    
     Animated.sequence([
       Animated.delay(800),
       Animated.timing(feedbackOpacity, {
@@ -90,20 +89,20 @@ export default function JogoTags() {
   // Sistema de clique em tags
   const handleTagClick = (tag: Tag) => {
     // Remove a tag imediatamente ao clicar
-    setTags(prevTags => prevTags.filter(t => t.id !== tag.id));
+  setTags((prevTags: Tag[]) => prevTags.filter((t: Tag) => t.id !== tag.id));
     
     if (tag.type === 'correct') {
       // Tag correta clicada
-      setScore(prev => prev + 50);
-      setCorrectCount(prev => prev + 1);
+  setScore((prev: number) => prev + 50);
+  setCorrectCount((prev: number) => prev + 1);
       showFeedback(`+50 PONTOS! 🎉`, true);
       
       // Aumenta a velocidade gradualmente (mais suave)
-      setGameSpeed(prev => Math.max(2000, prev - 25));
+  setGameSpeed((prev: number) => Math.max(2000, prev - 25));
     } else {
       // Tag errada clicada
-      setScore(prev => Math.max(0, prev - 25));
-      setWrongCount(prev => {
+      setScore((prev: number) => Math.max(0, prev - 25));
+      setWrongCount((prev: number) => {
         const newWrongCount = prev + 1;
         showFeedback(`-25 PONTOS ❌ (${newWrongCount}/5)`, false);
         
@@ -121,13 +120,14 @@ export default function JogoTags() {
 
   // Auto-remover tags que saem da tela
   const setupTagAutoRemoval = (tag: Tag) => {
-    const listener = tag.y.addListener(({ value }) => {
+    const listener = tag.y.addListener((state: { value: number }) => {
+      const value = state.value;
       if (value > screenHeight + 50) {
-        tag.y.removeListener(listener);
+        tag.y.removeListener(listener as any);
         
         // Se a tag correta passou, conta como "escapou"
         if (tag.type === 'correct') {
-          setMissedCorrectCount(prev => {
+          setMissedCorrectCount((prev: number) => {
             const newMissedCount = prev + 1;
             // Termina o jogo quando 10 tags corretas passam
             if (newMissedCount >= 10) {
@@ -140,7 +140,7 @@ export default function JogoTags() {
           });
         }
         
-        setTags(prevTags => prevTags.filter(t => t.id !== tag.id));
+  setTags((prevTags: Tag[]) => prevTags.filter((t: Tag) => t.id !== tag.id));
       }
     });
   };
