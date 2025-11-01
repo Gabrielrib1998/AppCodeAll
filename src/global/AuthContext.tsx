@@ -8,6 +8,10 @@ export type Usuario = {
   id: number;
   nome: string;
   email: string;
+  // papel é apenas para controle visual local: 'aluno' ou 'supervisor'
+  papel?: 'aluno' | 'supervisor';
+  // matrícula opcional (para supervisores)
+  matricula?: string;
 };
 
 type DadosContextoAuth = {
@@ -34,6 +38,10 @@ export function ProvedorAuth({ children }: ProvedorAuthProps) {
 
   // Chave de armazenamento local
   const CHAVE_SESSAO = '@codeall:sessao';
+  const CHAVE_PENDING_ROLE = '@codeall:pendingRole'; // compatibilidade
+  const CHAVE_PENDING_MATRICULA = '@codeall:pendingMatricula'; // compatibilidade
+  const CHAVE_PAPEL_PENDENTE = '@codeall:papelPendente';
+  const CHAVE_MATRICULA_PENDENTE = '@codeall:matriculaPendente';
   const CHAVE_TOKEN = '@codeall:token';
   const CHAVE_REFRESH = '@codeall:refreshToken';
 
@@ -49,6 +57,25 @@ export function ProvedorAuth({ children }: ProvedorAuthProps) {
       const refresh = await AsyncStorage.getItem(CHAVE_REFRESH);
       if (texto) {
         const dados = JSON.parse(texto) as Usuario;
+        // se houver papel/matricula pendentes aplicamos (compatibilidade)
+        try {
+          const papelPend = (await AsyncStorage.getItem(CHAVE_PAPEL_PENDENTE)) || (await AsyncStorage.getItem(CHAVE_PENDING_ROLE));
+          const matriculaPend = (await AsyncStorage.getItem(CHAVE_MATRICULA_PENDENTE)) || (await AsyncStorage.getItem(CHAVE_PENDING_MATRICULA));
+          if (papelPend) dados.papel = papelPend === 'supervisor' ? 'supervisor' : 'aluno';
+          if (matriculaPend) dados.matricula = matriculaPend;
+          // opcional: persistir de volta ao CHAVE_SESSAO
+          await AsyncStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados));
+          if (papelPend) {
+            await AsyncStorage.removeItem(CHAVE_PAPEL_PENDENTE);
+            await AsyncStorage.removeItem(CHAVE_PENDING_ROLE);
+          }
+          if (matriculaPend) {
+            await AsyncStorage.removeItem(CHAVE_MATRICULA_PENDENTE);
+            await AsyncStorage.removeItem(CHAVE_PENDING_MATRICULA);
+          }
+        } catch (e) {
+          // ignore
+        }
         setUsuario(dados);
       }
       if (token) setAuthToken(token);
@@ -88,6 +115,28 @@ export function ProvedorAuth({ children }: ProvedorAuthProps) {
         nome: String(nome),
         email: String(emailRet),
       };
+      // Se houver informações de papel/matrícula pendentes (do cadastro local), atribuímos ao usuário
+      try {
+        const papelPend = (await AsyncStorage.getItem(CHAVE_PAPEL_PENDENTE)) || (await AsyncStorage.getItem(CHAVE_PENDING_ROLE));
+        const matriculaPend = (await AsyncStorage.getItem(CHAVE_MATRICULA_PENDENTE)) || (await AsyncStorage.getItem(CHAVE_PENDING_MATRICULA));
+        if (papelPend) {
+          dadosUsuario.papel = papelPend === 'supervisor' ? 'supervisor' : 'aluno';
+        }
+        if (matriculaPend) {
+          dadosUsuario.matricula = matriculaPend;
+        }
+        // limpamos os pendentes
+        if (papelPend) {
+          await AsyncStorage.removeItem(CHAVE_PAPEL_PENDENTE);
+          await AsyncStorage.removeItem(CHAVE_PENDING_ROLE);
+        }
+        if (matriculaPend) {
+          await AsyncStorage.removeItem(CHAVE_MATRICULA_PENDENTE);
+          await AsyncStorage.removeItem(CHAVE_PENDING_MATRICULA);
+        }
+      } catch (e) {
+        // ignore
+      }
       await AsyncStorage.setItem(CHAVE_SESSAO, JSON.stringify(dadosUsuario));
       if (resp.token) {
         await AsyncStorage.setItem(CHAVE_TOKEN, resp.token);
@@ -97,7 +146,7 @@ export function ProvedorAuth({ children }: ProvedorAuthProps) {
         await AsyncStorage.setItem(CHAVE_REFRESH, resp.refreshToken);
         setRefreshToken(resp.refreshToken);
       }
-      setUsuario(dadosUsuario);
+  setUsuario(dadosUsuario);
     } catch (e: any) {
       throw e;
     } finally {

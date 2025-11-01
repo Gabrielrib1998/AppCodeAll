@@ -11,6 +11,8 @@ import CursoHtml from '../pages/CursoHtml/modulo1/index';
 import CursoHtml2 from '../pages/CursoHtml/Modulo2/index';
 import CursoHtml3 from '../pages/CursoHtml/modulo3';
 import JogoTags from '../pages/JogoTags/JogoTags';
+import CursoCSS1 from '../pages/CursoCSS/Modulo1/Index';
+import ProgressPage from '../pages/Progress/Index';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -22,6 +24,8 @@ export type RootStackParamList = {
   CursoHtml2: undefined;
   CursoHtml3: undefined;
   JogoTags: undefined;
+  CursoCSS1: undefined;
+  Progress: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -79,6 +83,16 @@ export default function Routes() {
           component={JogoTags} 
           options={{ headerShown: false }} 
         />
+        <Stack.Screen 
+          name="CursoCSS1" 
+          component={CursoCSS1}
+        />
+        <Stack.Screen
+          name="Progress"
+          component={ProgressPage}
+          options={{ title: 'Progressos', headerShown: true, header: () => <Cabecalho /> }}
+        />
     </Stack.Navigator>
-  );
+
+      );
 }

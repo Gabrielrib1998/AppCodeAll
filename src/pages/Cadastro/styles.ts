@@ -79,4 +79,40 @@ container: {
     opacity: 0.6, 
     zIndex: -1, 
   },
+  roleButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+    backgroundColor: '#ffffffaa',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  roleButtonActive: {
+    backgroundColor: theme.colors.botao,
+    borderColor: theme.colors.botao,
+  },
+  roleButtonText: {
+    color: '#000',
+    fontWeight: '700',
+  },
+  botaoPapel: {
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+    backgroundColor: '#ffffffaa',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  botaoPapelAtivo: {
+    backgroundColor: theme.colors.botao,
+    borderColor: theme.colors.botao,
+  },
+  textoBotaoPapel: {
+    color: '#000',
+    fontWeight: '700',
+  },
   });

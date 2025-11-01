@@ -4,6 +4,7 @@ import { styles } from "./styles";
 import Logo from "../../Assets/logo.png";
 import { Input } from "../../components/input";
 import { apiRegister } from "../../services/api";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -20,6 +21,8 @@ export default function Cadastro() {
   const [district, setDistrict] = React.useState('');
   const [city, setCity] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [papel, setPapel] = React.useState<'aluno' | 'supervisor'>('aluno');
+  const [matricula, setMatricula] = React.useState('');
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
   const confirmPasswordRef = useRef<TextInput>(null);
@@ -99,6 +102,18 @@ export default function Cadastro() {
         city,
       });
       setLoading(false);
+      // Guardar papel/matrícula localmente para quando o usuário fizer login (visual)
+      try {
+        await AsyncStorage.setItem('@codeall:papelPendente', papel);
+        // compatibilidade com chave antiga
+        await AsyncStorage.setItem('@codeall:pendingRole', papel);
+        if (papel === 'supervisor') {
+          await AsyncStorage.setItem('@codeall:matriculaPendente', matricula);
+          await AsyncStorage.setItem('@codeall:pendingMatricula', matricula);
+        }
+      } catch (e) {
+        // ignore
+      }
       Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!', [
         {
           text: 'Ir para Login',
@@ -150,6 +165,20 @@ export default function Cadastro() {
               </View>
 
               <View>
+                <View style={{ flexDirection: 'row', marginTop: 8, marginBottom: 8, alignItems: 'center' }}>
+                  <TouchableOpacity
+                    onPress={() => setPapel('aluno')}
+                    style={[styles.botaoPapel, papel === 'aluno' ? styles.botaoPapelAtivo : null]}
+                  >
+                    <Text style={styles.textoBotaoPapel}>Aluno</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setPapel('supervisor')}
+                    style={[styles.botaoPapel, papel === 'supervisor' ? styles.botaoPapelAtivo : null, { marginLeft: 8 }]}
+                  >
+                    <Text style={styles.textoBotaoPapel}>Supervisor</Text>
+                  </TouchableOpacity>
+                </View>
                 <Input
                   value={email}
                   onChangeText={setEmail}
@@ -159,6 +188,17 @@ export default function Cadastro() {
                   onSubmitEditing={() => passwordRef.current?.focus()}
                   ref={emailRef}
                 />
+                {/* Role selection buttons */}
+
+                {papel === 'supervisor' && (
+                  <Input
+                    value={matricula}
+                    onChangeText={setMatricula}
+                    title="Matrícula"
+                    placeholder="Digite sua matrícula"
+                    returnKeyType="next"
+                  />
+                )}
                 <Input
                   value={password}
                   onChangeText={setPassword}

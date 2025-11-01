@@ -3,7 +3,9 @@ import { Text, View, Keyboard, TouchableWithoutFeedback, ScrollView, Image, Touc
 import {styles} from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../../global/AuthContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from "../../components/Button";
+import { Input } from "../../components/input";
 import {Aladin_400Regular} from '@expo-google-fonts/aladin';
 import { useFonts } from 'expo-font';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -18,6 +20,28 @@ export default function Home() {
     const [fontsLoaded] = useFonts({
     Aladin_400Regular,
     });
+        const [search, setSearch] = React.useState('');
+        const [isSupervisor, setIsSupervisor] = React.useState(false);
+
+        React.useEffect(() => {
+            let mounted = true;
+            (async () => {
+                try {
+                    if (usuario?.papel === 'supervisor') {
+                        if (mounted) setIsSupervisor(true);
+                        return;
+                    }
+                    const papelPend = (await AsyncStorage.getItem('@codeall:papelPendente')) || (await AsyncStorage.getItem('@codeall:pendingRole'));
+                    if (papelPend === 'supervisor') {
+                        if (mounted) setIsSupervisor(true);
+                        return;
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            })();
+            return () => { mounted = false; };
+        }, [usuario]);
 
     if (!fontsLoaded) {
         return null;
@@ -35,9 +59,31 @@ export default function Home() {
               <View style={styles.container}>
                   <View style={{ paddingHorizontal: 16, paddingTop: 12 }}>
                       <Text style={styles.nome}>Olá, {nome} 👋</Text>
+                                {/* Botão do supervisor movido para cima, abaixo do cabeçalho */}
+                                {(usuario?.papel === 'supervisor' || isSupervisor) && (
+                                        <TouchableOpacity
+                                            onPress={() => navigation.navigate('Progress')}
+                                            style={{
+                                                marginTop: 8,
+                                                marginBottom: 12,
+                                                backgroundColor: theme.colors.botao,
+                                                paddingVertical: 10,
+                                                paddingHorizontal: 14,
+                                                borderRadius: 10,
+                                                alignSelf: 'flex-start',
+                                                alignItems: 'center',
+                                                flexDirection: 'row',
+                                                justifyContent: 'center',
+                                                width: '100%',
+                                            }}
+                                        >
+                                            <Text style={{ color: '#000', fontWeight: '700' }}>Ver progressos dos alunos</Text>
+                                        </TouchableOpacity>
+                                )}
                       <Text style={styles.MeusCursos}>Meus Cursos</Text>
                     
-                <TouchableOpacity onPress={() => navigation.navigate('CursoHtml')}>
+
+                                <TouchableOpacity onPress={() => navigation.navigate('CursoHtml')}>
                     <Card  
                         image="https://kinsta.com/wp-content/uploads/2021/03/HTML-5-Badge-Logo.png" 
                         title="HTML5" 
@@ -50,6 +96,7 @@ export default function Home() {
                         colorConclusao={colorConclusao()}
                     />
                 </TouchableOpacity>
+                                
                     <Card  
                         image="https://logospng.org/download/css-3/logo-css-3-512.png" 
                         title="CSS3" 
