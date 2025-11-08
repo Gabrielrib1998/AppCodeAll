@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, Alert, Image } from 'react-native';
 import { styles } from './styles';
 import { AuthContext } from '../../global/AuthContext';
 import { apiBuscarUsuarioPorEmail, UsuarioCompleto } from '../../services/api';
@@ -70,13 +70,10 @@ export default function Perfil() {
     try {
       if (!usuario?.email) return;
       setSalvando(true);
-      // Salva somente os campos editáveis como override local
       const override = { ...form };
       await AsyncStorage.setItem(STORAGE_OVERRIDE_KEY, JSON.stringify(override));
-      // Atualiza dados em tela
       setDados((prev) => prev ? { ...prev, ...override } as UsuarioCompleto : (null as any));
       setEditando(false);
-      // Se o nome mudou, atualiza sessão para refletir saudação e cabeçalho
       if (usuario && usuario.nome !== (form.name || '').trim()) {
         const novo = { ...usuario, nome: (form.name || '').trim() };
         try {
@@ -122,9 +119,11 @@ export default function Perfil() {
   ];
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
-      <Text style={styles.titulo}>Meus dados</Text>
-      {!editando ? (
+    <>
+    <Image source={{ uri: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80' }} style={styles.fundo} resizeMode="cover" />
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
+        <Text style={styles.titulo}>Meus dados</Text>
+        {!editando ? (
         <>
           {itens.map((item) => (
             <View key={item.rotulo} style={styles.linha}>
@@ -134,10 +133,7 @@ export default function Perfil() {
           ))}
           <Button title="Editar" onPress={() => setEditando(true)} />
           <View style={{ height: 8 }} />
-          <Button 
-            title="⚙️ Configurar Servidor" 
-            onPress={() => navigation.navigate('ConfigurarServidor')} 
-          />
+          
         </>
       ) : (
         <>
@@ -169,5 +165,6 @@ export default function Perfil() {
         </>
       )}
     </ScrollView>
+    </>
   );
 }

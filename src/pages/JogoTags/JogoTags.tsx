@@ -189,7 +189,7 @@ export default function JogoTags() {
         style={styles.container}
       >
         <View style={styles.menuContainer}>
-          <Text style={styles.gameTitle}>🍄 TAG COLLECTOR 🍄</Text>
+          <Text style={styles.gameTitle}>TAG COLLECTOR &lt; / &gt;  </Text>
           <Text style={styles.subtitle}>Colete as tags corretas!</Text>
           
           {gameOver && (

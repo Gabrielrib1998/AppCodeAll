@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         color: theme.colors.black,
-        textAlign: 'center',
+  textAlign: 'auto',
         marginTop: -50,
         maxWidth: '90%',
         fontWeight: '500',
@@ -113,7 +113,7 @@ export const styles = StyleSheet.create({
   welcome: {
     fontSize: 16,
     color: theme.colors.secundary,
-    textAlign: 'center',
+  textAlign: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 5,
@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: theme.colors.black,
     paddingHorizontal: 3,
-    textAlign: 'left',
+  textAlign: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
@@ -236,7 +236,7 @@ export const styles = StyleSheet.create({
   },
   inscricoes: {
     fontSize: 15,
-    textAlign: 'left', 
+  textAlign: 'auto', 
     color: theme.colors.white, 
     fontWeight: '500',
     marginLeft: 0, 
@@ -254,7 +254,7 @@ export const styles = StyleSheet.create({
   },
   cursoProgressText: {
     fontSize: 15,
-    textAlign: 'center', 
+  textAlign: 'auto', 
     color: theme.colors.black, 
     fontWeight: '500',
     marginLeft: 0, 
@@ -267,7 +267,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     width: 60,
     height: '35%',
-    textAlign: 'center',
+  textAlign: 'auto',
     color: 'rgba(0, 0, 0, 1)',
     fontWeight: '600',
   },

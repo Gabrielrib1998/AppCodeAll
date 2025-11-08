@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    textAlign: 'center',
+  textAlign: 'auto',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     borderEndStartRadius: 20,
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 18,
     paddingTop: 20,
-    textAlign: 'center',
+  textAlign: 'auto',
     alignItems: 'center',
   },
     icon: {
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     descricao: {
     fontSize: 17,
     lineHeight: 24,
-    textAlign: 'justify',
+  textAlign: 'auto',
     marginTop: 15,
     padding: 15,
     paddingHorizontal: 30,
@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     marginTop: 30,
     paddingHorizontal: 30,
-    textAlign: 'center',
+  textAlign: 'auto',
     alignItems: 'center',
     
 
@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    textAlign: 'center',
+  textAlign: 'auto',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     marginTop: 15,
@@ -113,14 +113,14 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'right',
+  textAlign: 'auto',
     marginTop: 10,
   },
     textoBotao: {
     fontSize: 16,
     color: theme.colors.black,
     fontWeight: 'bold',
-    textAlign: 'center',
+  textAlign: 'auto',
   },
     videoButton: {
     backgroundColor: "#f8f9fa",
@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#333",
     marginLeft: 12,
-    textAlign: "left",
+  textAlign: 'auto',
   },
 
   videoContainer: {
@@ -169,7 +169,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
     marginBottom: 12,
-    textAlign: "center",
+  textAlign: 'auto',
   },
 
   videoWrapper: {
@@ -210,7 +210,7 @@ export const styles = StyleSheet.create({
   videoDescription: {
     fontSize: 14,
     color: "#666",
-    textAlign: "center",
+  textAlign: 'auto',
     fontStyle: "italic",
     lineHeight: 20,
   },

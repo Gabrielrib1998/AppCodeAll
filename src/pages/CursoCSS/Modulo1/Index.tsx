@@ -61,26 +61,20 @@ export default function CursoCSS1() {
 
             <Text style={styles.descricao}> Para aplicar CSS inline, você usa o atributo <Text style={styles.tag}> style</Text> dentro da tag HTML do elemento que deseja estilizar. O valor do atributo é uma string que contém as propriedades CSS e seus valores, separados por ponto e vírgula.</Text>
 
-            <Text style={styles.subtitulo}>Exemplo 1 - Mudando a cor do texto:  👇🏻</Text>
+            <Text style={styles.subtitulo}>Exemplo - Mudando a cor do texto:  👇🏻</Text>
 
             <Image source={require('../../../Assets/CSS1.2.png')} style={styles.imagem} resizeMode="contain" />            
             
-            <Text style={styles.subtitulo}>Primeiras Tags Importantes  ⚙️</Text>
             
-            <Text style={styles.descricao}> • <Text style={styles.tag}>&lt;h1&gt;</Text> a <Text style={styles.tag}>&lt;h6&gt;</Text>: Títulos de diferentes níveis.</Text>
+
+            <Text style={styles.subtitulo}>💡 Exemplo com múltiplos estilos</Text>
             
-            <Text style={styles.descricao}> • <Text style={styles.tag}>&lt;p&gt;</Text>: Parágrafos de texto.</Text>
-            
-            <Text style={styles.descricao}> • <Text style={styles.tag}>&lt;a&gt;</Text>: Links para outras páginas ou recursos.</Text>
-            
-            <Text style={styles.subtitulo}>Exemplo de link:</Text>
-           
-                      
-            
+            <Image source={require('../../../Assets/CSS1.3.png')} style={styles.imagem} resizeMode="contain" />            
+                                                
             <Text style={styles.subtitulo}>Recursos Adicionais 🎥</Text>
 
             <View style={styles.videoContainer}>
-                <Text style={styles.videoTitle}>Tutorial: Introdução ao HTML</Text>
+                <Text style={styles.videoTitle}>Tutorial: Estilos CSS inline</Text>
                 <View style={styles.videoWrapper}>
                     <VideoView
                         style={styles.video}
@@ -103,21 +97,30 @@ export default function CursoCSS1() {
                     <MaterialIcons name="open-in-new" size={16} color="#666" />
                 </TouchableOpacity>
                 <Text style={styles.videoDescription}>
-                    📹 Este vídeo demonstra os conceitos básicos do HTML que acabamos de aprender.
+                    📹 Este vídeo demonstra os conceitos de CSS inline que acabamos de aprender.
                 </Text>
             </View>
             
             <Text style={styles.subtitulo}>Desafio  🎯</Text>
             
-            <Text style={styles.descricao}> Crie um arquivo HTML simples que inclua um título, um parágrafo e um link para seu site favorito. Experimente diferentes tags para ver como elas afetam a aparência do conteúdo.</Text>
+            <Text style={styles.descricao}> Crie um pequeno cartão de perfil em HTML que contenha:</Text>
+            <Text style={styles.descricao}> - Um titulo com o nome do usuario.</Text>
+            <Text style={styles.descricao}> - Um parágrafo com a profissão.</Text>
+            <Text style={styles.descricao}> - Um fundo colorido.</Text>
+            <Text style={styles.descricao}> - Texto centralizado e com cor diferente do fundo.</Text>
+            <Text style={styles.descricao}> - Todos os estilos devem ser inline (dentro das tags HTML).</Text>
+            <Text style={styles.descricao}> 💬 Dica: use as tags <Text style={styles.tag}>&lt;div&gt;</Text>, <Text style={styles.tag}>&lt;h2&gt;</Text> e <Text style={styles.tag}>&lt;p&gt;</Text>.</Text>
 
             <Text style={styles.subtitulo}>Conclusão do Módulo 1  🎉</Text>
 
-            <Text style={styles.descricao}> Parabéns por concluir o primeiro módulo! Agora você entende os fundamentos do HTML e está pronto para avançar para o próximo módulo, onde exploraremos mais tags e atributos essenciais.</Text>
+            <Text style={styles.descricao}> Parabéns por concluir o primeiro módulo!{'\n'}{'\n'}
+                Agora você já domina os estilos inline e entende como aplicar CSS diretamente dentro das tags HTML.{'\n'}
+                Esse é o primeiro passo para compreender como o CSS controla a aparência das páginas.{'\n'}
+                No próximo módulo, você vai aprender a usar o CSS interno, uma forma mais organizada de estilizar seus elementos e deixar o código mais limpo e fácil de manter.</Text>
            
             <View style={styles.containerInferior}>
-                    <Text style={styles.textoBotao}>Próximo Módulo: Estruturando Conteúdo e Trabalhando com Imagens</Text>
-                <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate("CursoCSS2")}>
+                    <Text style={styles.textoBotao}>Próximo Módulo: CSS interno</Text>
+                <TouchableOpacity style={styles.botao} onPress={() => navigation.replace("CursoCSS2")}>
                     <MaterialIcons name="arrow-forward-ios" size={20} color="#fff" />
                 </TouchableOpacity>
            </View>

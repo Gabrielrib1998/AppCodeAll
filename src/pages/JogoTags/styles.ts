@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: 'bold',
     color: '#2E8B57',
-    textAlign: 'center',
+  textAlign: 'auto',
     marginBottom: 10,
     textShadowColor: '#000',
     textShadowOffset: { width: 2, height: 2 },
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     color: '#4169E1',
-    textAlign: 'center',
+  textAlign: 'auto',
     marginBottom: 30,
     fontWeight: '600',
   },
@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FF6347',
     fontWeight: 'bold',
-    textAlign: 'center',
+  textAlign: 'auto',
     marginTop: 10,
   },
 
@@ -101,7 +101,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#2E8B57',
     marginBottom: 10,
-    textAlign: 'center',
+  textAlign: 'auto',
   },
 
   instructionText: {
@@ -233,7 +233,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '900',
     fontFamily: 'monospace',
-    textAlign: 'center',
+  textAlign: 'auto',
     textShadowColor: 'rgba(0, 0, 0, 0.8)',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 4,
@@ -338,7 +338,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: '#2E8B57',
     fontWeight: 'bold',
-    textAlign: 'center',
+  textAlign: 'auto',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     paddingHorizontal: 15,
     paddingVertical: 8,

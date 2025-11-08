@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: theme.colors.text,
-    textAlign: 'center',
+  textAlign: 'auto',
     maxWidth: '90%',
   },
   

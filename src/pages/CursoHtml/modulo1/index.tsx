@@ -113,7 +113,7 @@ export default function CursoHtml() {
            
             <View style={styles.containerInferior}>
                     <Text style={styles.textoBotao}>Próximo Módulo: Estruturando Conteúdo e Trabalhando com Imagens</Text>
-                <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate("CursoHtml2")}>
+                <TouchableOpacity style={styles.botao} onPress={() => navigation.replace("CursoHtml2")}> 
                     <MaterialIcons name="arrow-forward-ios" size={20} color="#fff" />
                 </TouchableOpacity>
            </View>

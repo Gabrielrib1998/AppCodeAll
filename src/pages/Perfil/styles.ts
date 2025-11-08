@@ -4,12 +4,12 @@ import { theme } from '../../global/themes';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.secundary,
     paddingTop: Platform.OS === 'android' ? 30 : 10,
     paddingHorizontal: 16,
+    marginTop: 10,
   },
   titulo: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: 'bold',
     color: theme.colors.black,
     marginBottom: 16,
@@ -31,4 +31,16 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 2,
   },
+  fundo: {
+    position: 'absolute',
+    top: Platform.OS === 'android' ? 30 : 0, 
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.4, 
+    zIndex: -1, 
+  },
+
 });

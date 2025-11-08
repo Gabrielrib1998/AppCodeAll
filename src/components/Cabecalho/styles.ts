@@ -52,6 +52,34 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  menuBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.35)'
+  },
+  menuContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 70,
+    right: 120,
+    width: 250,
+    backgroundColor: '#eaeaeaff',
+    borderRadius: 12,
+    paddingVertical: 6,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+  },
+  menuItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+  },
+  menuText: {
+    fontSize: 16,
+    color: '#000',
+  },
 });
 
 export default styles;

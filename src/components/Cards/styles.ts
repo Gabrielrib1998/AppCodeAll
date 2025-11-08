@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     width: 60,
     height: '35%',
-    textAlign: 'center',
+  textAlign: 'center',
     color: 'rgba(0, 0, 0, 1)',
     fontWeight: '600',
   },
@@ -110,7 +110,7 @@ export const styles = StyleSheet.create({
 
   inscricoes: {
     fontSize: 15,
-    textAlign: 'left', 
+  textAlign: 'center', 
     color: theme.colors.white, 
     fontWeight: '500',
     marginLeft: 0, 
@@ -132,7 +132,7 @@ export const styles = StyleSheet.create({
 
   cursoProgressText: {
     fontSize: 14,
-    textAlign: 'center', 
+    textAlign: 'center',
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.5,

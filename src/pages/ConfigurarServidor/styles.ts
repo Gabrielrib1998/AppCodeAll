@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 16,
     color: theme.colors.black,
-    textAlign: 'center',
+  textAlign: 'auto',
   },
   label: {
     fontSize: 14,
